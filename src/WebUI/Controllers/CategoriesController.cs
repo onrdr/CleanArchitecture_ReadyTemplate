@@ -19,64 +19,66 @@ public class CategoriesController : Controller
     [HttpGet("{categoryId}")]
     public async Task<IActionResult> GetCategory(Guid categoryId)
     {
-        var result = await _categoryService.GetCategoryByIdAsync(categoryId, default);
+        var categoryResult = await _categoryService.GetCategoryByIdAsync(categoryId, default);
 
-        return HandleCategoryResult(result);
+        return HandleCategoryResult(categoryResult);
     }
 
     [HttpGet("with-products/{categoryId}")]
     public async Task<IActionResult> GetCategoryWithProducts(Guid categoryId)
     {
-        var result = await _categoryService.GetCategoryWithProductsAsync(categoryId, default);
+        var categoryResult = await _categoryService.GetCategoryWithProductsAsync(categoryId, default);
 
-        return HandleCategoryResult(result);
+        return HandleCategoryResult(categoryResult);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllCategories()
     {
-        var result = await _categoryService.GetAllCategoriesAsync(p => true, default);
+        var categoriesResult = await _categoryService.GetAllCategoriesAsync(p => true, default);
 
-        return HandleCategoryResult(result);
+        return HandleCategoryResult(categoriesResult);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
     {
-        var result = await _categoryService.CreateCategoryAsync(createCategoryDto, default);
+        var createCategoryResult = await _categoryService.CreateCategoryAsync(createCategoryDto, default);
 
-        return HandleCategoryResult(result);
+        return HandleCategoryResult(createCategoryResult);
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
     {
-        var result = await _categoryService.UpdateCategoryAsync(updateCategoryDto, default);
+        var updateCategoryResult = await _categoryService.UpdateCategoryAsync(updateCategoryDto, default);
 
-        return HandleCategoryResult(result);
+        return HandleCategoryResult(updateCategoryResult);
     }
 
     [HttpDelete("{categoryId}")]
     public async Task<IActionResult> DeleteCategory(Guid categoryId)
     {
-        var result = await _categoryService.DeleteCategoryAsync(categoryId, default);
+        var deleteCategoryResult = await _categoryService.DeleteCategoryAsync(categoryId, default);
 
-        return HandleCategoryResult(result);
+        return HandleCategoryResult(deleteCategoryResult);
     }
 
     #region Helper Methods
-    private IActionResult HandleCategoryResult(Core.Utilities.Results.IResult categoryResult)
+    private IActionResult HandleCategoryResult(Core.Utilities.Results.IResult result)
     {
-        if (categoryResult.Success)
-            return Ok(categoryResult);
-
-        if (categoryResult.Message == Messages.CategoryNotFound
-            || categoryResult.Message == Messages.EmptyCategoryList)
+        if (result.Success)
         {
-            return NotFound(categoryResult);
+            return Ok(result);
         }
 
-        return BadRequest(categoryResult);
+        if (result.Message == Messages.CategoryNotFound
+            || result.Message == Messages.EmptyCategoryList)
+        {
+            return NotFound(result);
+        }
+
+        return BadRequest(result);
     } 
     #endregion
 }

@@ -20,56 +20,58 @@ public class ProductsController : Controller
     [HttpGet("{productId}")]
     public async Task<IActionResult> GetProduct(Guid productId)
     {
-        var result = await _productService.GetProductByIdAsync(productId, default);
+        var productResult = await _productService.GetProductByIdAsync(productId, default);
 
-        return HandleProductResult(result);
+        return HandleProductResult(productResult);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllProducts()
     {
-        var result = await _productService.GetAllProductsAsync(p => true, default);
+        var productsResult = await _productService.GetAllProductsAsync(p => true, default);
 
-        return HandleProductResult(result);
+        return HandleProductResult(productsResult);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
     {
-        var result = await _productService.CreateProductAsync(createProductDto, default);
+        var createProductResult = await _productService.CreateProductAsync(createProductDto, default);
 
-        return HandleProductResult(result);
+        return HandleProductResult(createProductResult);
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
     {
-        var result = await _productService.UpdateProductAsync(updateProductDto, default);
+        var updateProductResult = await _productService.UpdateProductAsync(updateProductDto, default);
 
-        return HandleProductResult(result);
+        return HandleProductResult(updateProductResult);
     }
 
     [HttpDelete("{productId}")]
     public async Task<IActionResult> DeleteProduct(Guid productId)
     {
-        var result = await _productService.DeleteProductAsync(productId, default);
+        var deleteProductResult = await _productService.DeleteProductAsync(productId, default);
 
-        return HandleProductResult(result);
+        return HandleProductResult(deleteProductResult);
     }
 
     #region Helper Methods
-    private IActionResult HandleProductResult(Core.Utilities.Results.IResult productResult)
+    private IActionResult HandleProductResult(Core.Utilities.Results.IResult result)
     {
-        if (productResult.Success)
-            return Ok(productResult);
-
-        if (productResult.Message == Messages.ProductNotFound
-            || productResult.Message == Messages.EmptyProductList)
+        if (result.Success)
         {
-            return NotFound(productResult);
+            return Ok(result);
         }
 
-        return BadRequest(productResult);
+        if (result.Message == Messages.ProductNotFound
+            || result.Message == Messages.EmptyProductList)
+        {
+            return NotFound(result);
+        }
+
+        return BadRequest(result);
     }
     #endregion
 }
