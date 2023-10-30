@@ -17,8 +17,6 @@ public class Messages
     #endregion
 
     #region Category Messages
-
-    #endregion
     public const string CategoryNotFound = "Category not found";
     public const string EmptyCategoryList = "Category list is empty with the current filter";
 
@@ -31,4 +29,5 @@ public class Messages
 
     public const string DeleteCategorySuccess = "Category successfully deleted";
     public const string DeleteCategoryError = "Error occured while deleting the Category from Database";
+    #endregion
 }
