@@ -16,6 +16,7 @@ public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     public async Task<Category?> GetCategoryWithProductsAsync(Guid categoryId)
     {
         var category = await _dataContext.Categories
+            .Where(c => c.Id == categoryId)
             .Include(c => c.Products)
             .FirstOrDefaultAsync();
 
