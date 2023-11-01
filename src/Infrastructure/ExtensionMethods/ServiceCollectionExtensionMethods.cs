@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
+using DataAccess.Repositories.Concrete.Cache;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -17,7 +18,8 @@ public static class ServiceCollectionExtensionMethods
         services
             .ConfigureDatabase(configurationManager)
             .AddApplicationServices()
-            .AddAutoMapper(Assembly.GetExecutingAssembly());
+            .AddAutoMapper(Assembly.GetExecutingAssembly())
+            .AddMemoryCache();
 
         return services;
     }
@@ -32,11 +34,13 @@ public static class ServiceCollectionExtensionMethods
 
     static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddTransient<ICategoryRepository, CategoryRepository>();
-        services.AddTransient<ICategoryService, CategoryService>();
+        services.AddScoped<CategoryRepository>();
+        services.AddScoped<ICategoryRepository, CachedCategoryRepository>();
+        services.AddScoped<ICategoryService, CategoryService>();
 
-        services.AddTransient<IProductRepository, ProductRepository>();
-        services.AddTransient<IProductService, ProductService>();
+        services.AddScoped<ProductRepository>();
+        services.AddScoped<IProductRepository, CachedProductRepository>();
+        services.AddScoped<IProductService, ProductService>();
 
         return services;
     }

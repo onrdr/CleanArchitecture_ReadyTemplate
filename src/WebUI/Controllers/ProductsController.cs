@@ -1,4 +1,4 @@
-﻿using Core.Entities.DTOs.Product;
+﻿using Core.DTOs.Product;
 using Core.Interfaces.Services;
 using Core.Utilities.Constants;
 using Microsoft.AspNetCore.Mvc;

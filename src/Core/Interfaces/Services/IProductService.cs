@@ -1,7 +1,7 @@
-﻿using Core.Entities.DTOs.Product;
-using Core.Entities; 
+﻿using Core.Entities;
 using Core.Utilities.Results;
 using System.Linq.Expressions;
+using Core.DTOs.Product;
 
 namespace Core.Interfaces.Services;
 

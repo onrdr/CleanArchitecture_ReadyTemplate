@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Entities.DTOs.Category;
+namespace Core.DTOs.Product;
 
-public class UpdateCategoryDto
+public class UpdateProductDto
 {
     [Required]
     public Guid Id { get; set; }
@@ -12,4 +12,10 @@ public class UpdateCategoryDto
 
     [Required]
     public string Description { get; set; }
+
+    [Required]
+    public double Price { get; set; }
+
+    [Required]
+    public Guid CategoryId { get; set; }
 }

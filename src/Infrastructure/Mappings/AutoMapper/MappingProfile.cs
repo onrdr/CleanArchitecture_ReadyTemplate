@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Core.DTOs.Category;
+using Core.DTOs.Product;
 using Core.Entities;
-using Core.Entities.DTOs.Category;
-using Core.Entities.DTOs.Product;
 
 namespace Infrastructure.Mappings.AutoMapper;
 

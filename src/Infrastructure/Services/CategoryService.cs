@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Core.Entities; 
-using Core.Entities.DTOs.Category;
+using Core.DTOs.Category;
+using Core.Entities;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 using Core.Utilities.Constants;

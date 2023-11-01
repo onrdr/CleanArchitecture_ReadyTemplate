@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Core.DTOs.Product;
 using Core.Entities;
-using Core.Entities.DTOs.Product;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 using Core.Utilities.Constants;
-using Core.Utilities.Results; 
+using Core.Utilities.Results;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Services;

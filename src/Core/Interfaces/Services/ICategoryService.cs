@@ -1,7 +1,8 @@
-﻿using Core.Entities.DTOs.Category;
-using Core.Entities; 
+﻿using Core.Entities;
 using Core.Utilities.Results;
 using System.Linq.Expressions;
+using Core.DTOs.Category;
+
 namespace Core.Interfaces.Services;
 
 public interface ICategoryService
