@@ -12,6 +12,7 @@ public class ProductServiceTests : TestBase
 {
     public ProductServiceTests(ApplicationFixture applicationFixture) : base(applicationFixture) { }
 
+    #region GetProduct
     [Fact]
     public async Task GetProductByIdAsync_WhenProductDoesNotExist_ReturnsErrorDataResult()
     {
@@ -43,4 +44,5 @@ public class ProductServiceTests : TestBase
         result.Data.Price.Should().Be(productToAdd.Price);
         result.Data.CategoryId.Should().Be(productToAdd.CategoryId);
     } 
+    #endregion
 }

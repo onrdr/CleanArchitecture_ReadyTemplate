@@ -2,7 +2,7 @@
 using Core.Interfaces.Repositories;
 using FluentAssertions;
 using Integration.Base;
-using Microsoft.Extensions.DependencyInjection; 
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Integration.Harness;
 

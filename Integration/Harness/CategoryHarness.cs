@@ -2,12 +2,12 @@
 using Core.Interfaces.Repositories;
 using FluentAssertions;
 using Integration.Base;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection; 
 
 namespace Integration.Harness;
 
 internal static class CategoryHarness
-{
+{ 
     internal static async Task<Category> RegisterAndGetRandomCategoryAsync(this TestBase testBase, bool assertSuccess = true)
     {
         var categoryRepository = testBase.ApplicationFixture.Services.GetRequiredService<ICategoryRepository>(); 
@@ -29,5 +29,22 @@ internal static class CategoryHarness
     {
         if (assertSuccess)
             registerResult.Should().BeGreaterThan(0);
+    }
+
+    internal static async Task<Category> RegisterCategoryWithProductsAndGetCategoryAsync(this TestBase testBase, bool assertSuccess = true)
+    {
+        var categoryRepository = testBase.ApplicationFixture.Services.GetRequiredService<ICategoryRepository>();
+        var product = await testBase.RegisterCategoryAndGetRandomProductAsync();
+        var category = await categoryRepository.GetByIdAsync(product.CategoryId);
+
+        AssertGetCategoryByIdResult(true, category);
+
+        return category!;
+    }
+
+    private static void AssertGetCategoryByIdResult(bool assertSuccess, Category? category)
+    {
+        if (assertSuccess)
+            category.Should().NotBeNull();
     }
 }
