@@ -38,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\src\Core\Core.csproj" />
+		<ProjectReference Include="..\src\Core\ApplicationCore.csproj" />
 		<ProjectReference Include="..\src\Infrastructure\Infrastructure.csproj" />
 		<ProjectReference Include="..\src\WebUI\WebUI.csproj" />
 	</ItemGroup>

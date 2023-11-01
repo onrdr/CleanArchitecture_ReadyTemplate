@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{74FC5152-4CA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "src\WebUI\WebUI.csproj", "{A8E63DEC-4ECD-4B24-867E-62E63C840C7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\Core\Core.csproj", "{C0CAD8BF-566D-41D3-9D94-4ED6237EDB8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationCore", "src\Core\ApplicationCore.csproj", "{C0CAD8BF-566D-41D3-9D94-4ED6237EDB8D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{B0F60D32-F95F-48AD-A29F-C031B56E0C09}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DB739B73-5438-4147-A196-30C6B26B277D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration", "Integration\Integration.csproj", "{0BBA4122-3D0E-4B93-98E4-CB08E74EF1FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integration", "Integration\Integration.csproj", "{0BBA4122-3D0E-4B93-98E4-CB08E74EF1FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
