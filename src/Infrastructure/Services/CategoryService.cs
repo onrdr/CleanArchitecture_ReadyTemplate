@@ -115,7 +115,7 @@ public class CategoryService : ICategoryService
         var categoryList = await _categoryRepository.GetAllAsync(c => 
             c.Name.ToLower() == name.ToLower().Trim());
 
-        return !categoryList.Any()
+        return categoryList is not null && !categoryList.Any()
             ? new SuccessResult()
             : new ErrorResult(Messages.CategoryAlreadyExists);
     }
@@ -125,7 +125,7 @@ public class CategoryService : ICategoryService
         var categoryList = await _categoryRepository.GetAllAsync(c =>
             c.Name.ToLower() == name.ToLower().Trim() && c.Id != categoryId);
 
-        return !categoryList.Any()
+        return categoryList is not null && !categoryList.Any()
             ? new SuccessResult()
             : new ErrorResult(Messages.CategoryAlreadyExists);
     }

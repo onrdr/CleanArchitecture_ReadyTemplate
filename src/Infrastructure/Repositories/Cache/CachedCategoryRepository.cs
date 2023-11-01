@@ -31,7 +31,7 @@ public class CachedCategoryRepository : ICategoryRepository
 
     public async Task<IEnumerable<Category>?> GetAllAsync(Expression<Func<Category, bool>> predicate)
     {
-        string key = $"all-categories-{predicate.GetHashCode()}";
+        string key = $"all-categories-{predicate}";
         return await _cache.GetOrCreateAsync(key, async entry =>
         {
             CachedKeys.Add(key);
