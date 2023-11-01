@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using AutoMapper; 
 using Core.DTOs.Category;
 using Core.Entities;
 using Core.Interfaces.Repositories;
@@ -70,9 +70,9 @@ public class CategoryService : ICategoryService
         if (!categoryResult.Success)
         {
             return categoryResult;
-        }
+        } 
 
-        var existResult = await CheckIfCategoryNameAlreadyExistsAsync(updateCategoryDto.Name);
+        var existResult = await CheckIfCategoryNameAlreadyExistsAsync(updateCategoryDto.Name, updateCategoryDto.Id);
         if (!existResult.Success)
         {
             return existResult;
@@ -111,8 +111,20 @@ public class CategoryService : ICategoryService
 
     #region Helper Methods
     private async Task<IResult> CheckIfCategoryNameAlreadyExistsAsync(string name)
+    { 
+        var categoryList = await _categoryRepository.GetAllAsync(c => 
+            c.Name.ToLower() == name.ToLower().Trim());
+
+        return !categoryList.Any()
+            ? new SuccessResult()
+            : new ErrorResult(Messages.CategoryAlreadyExists);
+    }
+
+    private async Task<IResult> CheckIfCategoryNameAlreadyExistsAsync(string name, Guid categoryId)
     {
-        var categoryList = await _categoryRepository.GetAllAsync(c => c.Name.ToLower() == name.ToLower().Trim());
+        var categoryList = await _categoryRepository.GetAllAsync(c =>
+            c.Name.ToLower() == name.ToLower().Trim() && c.Id != categoryId);
+
         return !categoryList.Any()
             ? new SuccessResult()
             : new ErrorResult(Messages.CategoryAlreadyExists);

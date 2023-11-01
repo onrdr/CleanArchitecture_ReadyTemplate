@@ -22,7 +22,7 @@ public class Messages
 
     public const string CreateCategorySuccess = "Category created successfully";
     public const string CreateCategoryError = "Error occured while registering the Category to Database";
-    public const string CategoryAlreadyExists = "Category already exists";
+    public const string CategoryAlreadyExists = "A category already exists with this name";
 
     public const string UpdateCategorySuccess = "Category successfully updated";
     public const string UpdateCategoryError = "Error occured while updating the Category in Database";
