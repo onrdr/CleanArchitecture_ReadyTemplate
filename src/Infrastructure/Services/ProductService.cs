@@ -66,6 +66,12 @@ public class ProductService : IProductService
             return productResult;
         }
 
+        var categoryResult = await _categoryService.GetCategoryByIdAsync(updateProductDto.CategoryId, cancellationToken);
+        if (!categoryResult.Success)
+        {
+            return categoryResult;
+        }
+
         CompleteUpdate(productResult.Data, updateProductDto);
 
         var updateProductResult = await _productRepository.UpdateAsync(productResult.Data);

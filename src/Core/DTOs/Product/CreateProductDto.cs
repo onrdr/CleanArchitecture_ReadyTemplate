@@ -11,6 +11,7 @@ public class CreateProductDto
     public string Description { get; set; }
 
     [Required]
+    [Range(1, double.MaxValue)]
     public double Price { get; set; }
 
     [Required]
