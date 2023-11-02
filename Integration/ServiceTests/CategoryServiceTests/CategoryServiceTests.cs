@@ -56,6 +56,21 @@ public class CategoryServiceTests : TestBase
     }
 
     [Fact]
+    public async Task GetCategoryWithProductsAsync_WhenCategoryExistButDoesNotHaveAnyProducts_ReturnsErrorDataResult()
+    {
+        // Arrange
+        var category = await this.RegisterAndGetRandomCategoryAsync();
+
+        // Act
+        var result = await CategoryService.GetCategoryWithProductsAsync(category.Id, default);
+
+        // Assert
+        result.Should().NotBeNull().And.BeOfType<ErrorDataResult<Category>>();
+        result.Data.Should().BeNull();
+        result.Message.Should().Be(Messages.EmptyProductListForCategoryError);
+    }
+
+    [Fact]
     public async Task GetCategoryWithProductsAsync_WhenCategoryExistAndProductsIncluded_ReturnsSuccessDataResult()
     {
         // Arrange

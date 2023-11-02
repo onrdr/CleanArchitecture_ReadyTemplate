@@ -72,8 +72,9 @@ public class CategoriesController : Controller
             return Ok(result);
         }
 
-        if (result.Message == Messages.CategoryNotFound
-            || result.Message == Messages.EmptyCategoryList)
+        if (result.Message == Messages.CategoryNotFound || 
+            result.Message == Messages.EmptyCategoryList ||
+            result.Message == Messages.EmptyProductListForCategoryError)
         {
             return NotFound(result);
         }

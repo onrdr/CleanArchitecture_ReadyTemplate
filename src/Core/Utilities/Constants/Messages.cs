@@ -29,5 +29,7 @@ public class Messages
 
     public const string DeleteCategorySuccess = "Category successfully deleted";
     public const string DeleteCategoryError = "Error occured while deleting the Category from Database";
+
+    public const string EmptyProductListForCategoryError = "This category does not have any products";
     #endregion
 }

@@ -32,9 +32,14 @@ public class CategoryService : ICategoryService
     public async Task<IDataResult<Category>> GetCategoryWithProductsAsync(Guid categoryId, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.GetCategoryWithProductsAsync(categoryId);
-        return category is not null
-            ? new SuccessDataResult<Category>(category)
-            : new ErrorDataResult<Category>(Messages.CategoryNotFound);
+        if (category is null)
+        {
+            return new ErrorDataResult<Category>(Messages.CategoryNotFound);
+        }
+
+        return !category.Products.Any() 
+            ? new ErrorDataResult<Category>(Messages.EmptyProductListForCategoryError)
+            : new SuccessDataResult<Category>(category); 
     }
 
     public async Task<IDataResult<IEnumerable<Category>>> GetAllCategoriesAsync(
