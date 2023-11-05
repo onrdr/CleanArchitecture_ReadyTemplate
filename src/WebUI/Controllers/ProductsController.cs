@@ -22,7 +22,7 @@ public class ProductsController : Controller
     {
         var productResult = await _productService.GetProductByIdAsync(productId, default);
 
-        return HandleProductResult(productResult);
+        return HandleProductResponse(productResult);
     }
 
     [HttpGet]
@@ -30,7 +30,7 @@ public class ProductsController : Controller
     {
         var productsResult = await _productService.GetAllProductsAsync(p => true, default);
 
-        return HandleProductResult(productsResult);
+        return HandleProductResponse(productsResult);
     }
 
     [HttpPost]
@@ -38,7 +38,7 @@ public class ProductsController : Controller
     {
         var createProductResult = await _productService.CreateProductAsync(createProductDto, default);
 
-        return HandleProductResult(createProductResult);
+        return HandleProductResponse(createProductResult);
     }
 
     [HttpPut]
@@ -46,7 +46,7 @@ public class ProductsController : Controller
     {
         var updateProductResult = await _productService.UpdateProductAsync(updateProductDto, default);
 
-        return HandleProductResult(updateProductResult);
+        return HandleProductResponse(updateProductResult);
     }
 
     [HttpDelete("{productId}")]
@@ -54,11 +54,11 @@ public class ProductsController : Controller
     {
         var deleteProductResult = await _productService.DeleteProductAsync(productId, default);
 
-        return HandleProductResult(deleteProductResult);
+        return HandleProductResponse(deleteProductResult);
     }
 
     #region Helper Methods
-    private IActionResult HandleProductResult(Core.Utilities.Results.IResult result)
+    private IActionResult HandleProductResponse(Core.Utilities.Results.IResult result)
     {
         if (result.Success)
         {

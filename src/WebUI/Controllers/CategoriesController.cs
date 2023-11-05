@@ -21,7 +21,7 @@ public class CategoriesController : Controller
     {
         var categoryResult = await _categoryService.GetCategoryByIdAsync(categoryId, default);
 
-        return HandleCategoryResult(categoryResult);
+        return HandleCategoryResponse(categoryResult);
     }
 
     [HttpGet("with-products/{categoryId}")]
@@ -29,7 +29,7 @@ public class CategoriesController : Controller
     {
         var categoryResult = await _categoryService.GetCategoryWithProductsAsync(categoryId, default);
 
-        return HandleCategoryResult(categoryResult);
+        return HandleCategoryResponse(categoryResult);
     }
 
     [HttpGet]
@@ -37,7 +37,7 @@ public class CategoriesController : Controller
     {
         var categoriesResult = await _categoryService.GetAllCategoriesAsync(p => true, default);
 
-        return HandleCategoryResult(categoriesResult);
+        return HandleCategoryResponse(categoriesResult);
     }
 
     [HttpPost]
@@ -45,7 +45,7 @@ public class CategoriesController : Controller
     {
         var createCategoryResult = await _categoryService.CreateCategoryAsync(createCategoryDto, default);
 
-        return HandleCategoryResult(createCategoryResult);
+        return HandleCategoryResponse(createCategoryResult);
     }
 
     [HttpPut]
@@ -53,7 +53,7 @@ public class CategoriesController : Controller
     {
         var updateCategoryResult = await _categoryService.UpdateCategoryAsync(updateCategoryDto, default);
 
-        return HandleCategoryResult(updateCategoryResult);
+        return HandleCategoryResponse(updateCategoryResult);
     }
 
     [HttpDelete("{categoryId}")]
@@ -61,11 +61,11 @@ public class CategoriesController : Controller
     {
         var deleteCategoryResult = await _categoryService.DeleteCategoryAsync(categoryId, default);
 
-        return HandleCategoryResult(deleteCategoryResult);
+        return HandleCategoryResponse(deleteCategoryResult);
     }
 
     #region Helper Methods
-    private IActionResult HandleCategoryResult(Core.Utilities.Results.IResult result)
+    private IActionResult HandleCategoryResponse(Core.Utilities.Results.IResult result)
     {
         if (result.Success)
         {
