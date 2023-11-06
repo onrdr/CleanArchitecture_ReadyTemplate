@@ -1,7 +1,7 @@
-﻿using Core.Interfaces.Entities;
-using Core.Interfaces.Entities.Base;
+﻿using ApplicationCore.Interfaces.Entities;
+using ApplicationCore.Interfaces.Entities.Base;
 
-namespace Core.Entities;
+namespace ApplicationCore.Entities;
 
 public class Category : IBaseEntity, ICategory
 {

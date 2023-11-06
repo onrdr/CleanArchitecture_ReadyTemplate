@@ -1,6 +1,6 @@
-﻿using Core.DTOs.Product;
-using Core.Interfaces.Services;
-using Core.Utilities.Constants;
+﻿using ApplicationCore.DTOs.Product;
+using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Utilities.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers;
@@ -58,7 +58,7 @@ public class ProductsController : Controller
     }
 
     #region Helper Methods
-    private IActionResult HandleProductResponse(Core.Utilities.Results.IResult result)
+    private IActionResult HandleProductResponse(ApplicationCore.Utilities.Results.IResult result)
     {
         if (result.Success)
         {

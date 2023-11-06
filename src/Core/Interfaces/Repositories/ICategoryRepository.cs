@@ -1,7 +1,7 @@
-﻿using Core.Entities;
-using Core.Interfaces.Repositories.Base; 
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repositories.Base; 
 
-namespace Core.Interfaces.Repositories;
+namespace ApplicationCore.Interfaces.Repositories;
 
 public interface ICategoryRepository : IBaseRepository<Category> 
 {

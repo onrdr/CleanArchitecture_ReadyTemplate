@@ -1,4 +1,4 @@
-﻿namespace Core.Interfaces.Entities;
+﻿namespace ApplicationCore.Interfaces.Entities;
 
 public interface ICategory
 {

@@ -1,4 +1,4 @@
-﻿namespace Core.Interfaces.Entities.Base;
+﻿namespace ApplicationCore.Interfaces.Entities.Base;
 
 public interface IBaseEntity<T>
 {

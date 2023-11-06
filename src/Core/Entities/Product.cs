@@ -1,8 +1,8 @@
-﻿using Core.Interfaces.Entities;
-using Core.Interfaces.Entities.Base;
+﻿using ApplicationCore.Interfaces.Entities;
+using ApplicationCore.Interfaces.Entities.Base;
 using System.Text.Json.Serialization;
 
-namespace Core.Entities;
+namespace ApplicationCore.Entities;
 
 public class Product : IBaseEntity, IProduct
 {

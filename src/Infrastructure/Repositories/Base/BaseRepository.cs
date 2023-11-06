@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Core.Interfaces.Repositories.Base;
+using ApplicationCore.Interfaces.Repositories.Base;
+using ApplicationCore.Interfaces.Entities.Base;
 using Infrastructure.Data;
-using Core.Interfaces.Entities.Base;
 
 namespace Infrastructure.Repositories.Base;
 

@@ -1,6 +1,6 @@
-﻿using Core.Entities;
-using Core.Utilities.Constants;
-using Core.Utilities.Results;
+﻿using ApplicationCore.DTOs.Category;
+using ApplicationCore.Utilities.Constants;
+using ApplicationCore.Utilities.Results;
 using FluentAssertions;
 using Integration.Base;
 using Integration.Fixtures;
@@ -23,7 +23,7 @@ public class CategoryServiceTests : TestBase
         var result = await CategoryService.GetCategoryByIdAsync(categoryId, default);
 
         // Assert
-        result.Should().NotBeNull().And.BeOfType<ErrorDataResult<Category>>();
+        result.Should().NotBeNull().And.BeOfType<ErrorDataResult<ViewCategoryDto>>();
         result.Message.Should().Be(Messages.CategoryNotFound);
     }
 
@@ -37,8 +37,10 @@ public class CategoryServiceTests : TestBase
         var result = await CategoryService.GetCategoryByIdAsync(category.Id, default);
 
         // Assert
-        result.Should().NotBeNull().And.BeOfType<SuccessDataResult<Category>>();
-        result.Data.Should().BeEquivalentTo(category);
+        result.Should().NotBeNull().And.BeOfType<SuccessDataResult<ViewCategoryDto>>();
+        result.Data.Id.Should().Be(category.Id);
+        result.Data.Name.Should().Be(category.Name);
+        result.Data.Description.Should().Be(category.Description); 
     }
 
     [Fact]
@@ -51,7 +53,7 @@ public class CategoryServiceTests : TestBase
         var result = await CategoryService.GetCategoryWithProductsAsync(categoryId, default);
 
         // Assert
-        result.Should().NotBeNull().And.BeOfType<ErrorDataResult<Category>>();
+        result.Should().NotBeNull().And.BeOfType<ErrorDataResult<ViewCategoryWithProductsDto>>();
         result.Message.Should().Be(Messages.CategoryNotFound);
     }
 
@@ -65,7 +67,7 @@ public class CategoryServiceTests : TestBase
         var result = await CategoryService.GetCategoryWithProductsAsync(category.Id, default);
 
         // Assert
-        result.Should().NotBeNull().And.BeOfType<ErrorDataResult<Category>>();
+        result.Should().NotBeNull().And.BeOfType<ErrorDataResult<ViewCategoryWithProductsDto>>();
         result.Data.Should().BeNull();
         result.Message.Should().Be(Messages.EmptyProductListForCategoryError);
     }
@@ -77,11 +79,13 @@ public class CategoryServiceTests : TestBase
         var category = await this.RegisterCategoryWithProductsAndGetCategoryAsync();
 
         // Act
-        var result = await CategoryService.GetCategoryByIdAsync(category.Id, default);
+        var result = await CategoryService.GetCategoryWithProductsAsync(category.Id, default);
 
         // Assert
-        result.Should().NotBeNull().And.BeOfType<SuccessDataResult<Category>>();
-        result.Data.Should().BeEquivalentTo(category);
+        result.Should().NotBeNull().And.BeOfType<SuccessDataResult<ViewCategoryWithProductsDto>>();
+        result.Data.Id.Should().Be(category.Id);
+        result.Data.Name.Should().Be(category.Name);
+        result.Data.Description.Should().Be(category.Description);
         result.Data.Products.Should().BeEquivalentTo(category.Products);
     }
     #endregion

@@ -1,6 +1,6 @@
-﻿using Core.DTOs.Category;
-using Core.Interfaces.Services;
-using Core.Utilities.Constants;
+﻿using ApplicationCore.DTOs.Category;
+using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Utilities.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers;
@@ -65,7 +65,7 @@ public class CategoriesController : Controller
     }
 
     #region Helper Methods
-    private IActionResult HandleCategoryResponse(Core.Utilities.Results.IResult result)
+    private IActionResult HandleCategoryResponse(ApplicationCore.Utilities.Results.IResult result)
     {
         if (result.Success)
         {

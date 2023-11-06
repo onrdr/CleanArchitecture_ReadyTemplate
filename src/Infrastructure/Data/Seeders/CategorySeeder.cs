@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using ApplicationCore.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Seeders;

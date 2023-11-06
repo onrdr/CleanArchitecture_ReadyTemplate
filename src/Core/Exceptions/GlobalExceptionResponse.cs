@@ -1,4 +1,4 @@
-﻿namespace Core.Exceptions;
+﻿namespace ApplicationCore.Exceptions;
 
 public class GlobalExceptionResponse
 {

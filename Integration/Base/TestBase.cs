@@ -1,4 +1,4 @@
-﻿using Core.Interfaces.Services;
+﻿using ApplicationCore.Interfaces.Services;
 using Integration.Fixtures;
 using Microsoft.Extensions.DependencyInjection;
 

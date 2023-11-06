@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Core.Interfaces.Repositories;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repositories;
 using FluentAssertions;
 using Integration.Base;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,10 +16,11 @@ internal static class ProductHarness
 
         var productToAdd = new Product()
         {
-            Name = $"Category {productCounter}",
-            Description = $"Category Description {productCounter}",
+            Name = $"Product {productCounter}",
+            Description = $"Product Description {productCounter}",
             Price = new Random().NextDouble() * 10,
             CategoryId = category.Id,
+            Category = category,
         };
 
         var registerResult = await productRepository.AddAsync(productToAdd);

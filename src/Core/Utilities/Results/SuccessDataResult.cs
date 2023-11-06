@@ -1,4 +1,4 @@
-﻿namespace Core.Utilities.Results;
+﻿namespace ApplicationCore.Utilities.Results;
 
 public class SuccessDataResult<T> : DataResult<T>
 {

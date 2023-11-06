@@ -1,10 +1,10 @@
 ﻿using AutoMapper; 
-using Core.DTOs.Category;
-using Core.Entities;
-using Core.Interfaces.Repositories;
-using Core.Interfaces.Services;
-using Core.Utilities.Constants;
-using Core.Utilities.Results;
+using ApplicationCore.DTOs.Category;
+using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repositories;
+using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Utilities.Constants;
+using ApplicationCore.Utilities.Results;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Services;
@@ -21,34 +21,34 @@ public class CategoryService : ICategoryService
     }
 
     #region Read
-    public async Task<IDataResult<Category>> GetCategoryByIdAsync(Guid categoryId, CancellationToken cancellationToken)
+    public async Task<IDataResult<ViewCategoryDto>> GetCategoryByIdAsync(Guid categoryId, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.GetByIdAsync(categoryId);
         return category is not null
-            ? new SuccessDataResult<Category>(category)
-            : new ErrorDataResult<Category>(Messages.CategoryNotFound);
+            ? new SuccessDataResult<ViewCategoryDto>(_mapper.Map<ViewCategoryDto>(category))
+            : new ErrorDataResult<ViewCategoryDto>(Messages.CategoryNotFound);
     }
 
-    public async Task<IDataResult<Category>> GetCategoryWithProductsAsync(Guid categoryId, CancellationToken cancellationToken)
+    public async Task<IDataResult<ViewCategoryWithProductsDto>> GetCategoryWithProductsAsync(Guid categoryId, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.GetCategoryWithProductsAsync(categoryId);
         if (category is null)
         {
-            return new ErrorDataResult<Category>(Messages.CategoryNotFound);
+            return new ErrorDataResult<ViewCategoryWithProductsDto>(Messages.CategoryNotFound);
         }
 
         return !category.Products.Any() 
-            ? new ErrorDataResult<Category>(Messages.EmptyProductListForCategoryError)
-            : new SuccessDataResult<Category>(category); 
+            ? new ErrorDataResult<ViewCategoryWithProductsDto>(Messages.EmptyProductListForCategoryError)
+            : new SuccessDataResult<ViewCategoryWithProductsDto>(_mapper.Map<ViewCategoryWithProductsDto>(category)); 
     }
 
-    public async Task<IDataResult<IEnumerable<Category>>> GetAllCategoriesAsync(
+    public async Task<IDataResult<IEnumerable<ViewCategoryDto>>> GetAllCategoriesAsync(
         Expression<Func<Category, bool>> predicate, CancellationToken cancellationToken)
     {
         var categoryList = await _categoryRepository.GetAllAsync(predicate);
         return categoryList is not null && categoryList.Any()
-            ? new SuccessDataResult<IEnumerable<Category>>(categoryList)
-            : new ErrorDataResult<IEnumerable<Category>>(Messages.EmptyCategoryList);
+            ? new SuccessDataResult<IEnumerable<ViewCategoryDto>>(_mapper.Map<IEnumerable<ViewCategoryDto>>(categoryList))
+            : new ErrorDataResult<IEnumerable<ViewCategoryDto>>(Messages.EmptyCategoryList);
     }
     #endregion
 
@@ -71,10 +71,10 @@ public class CategoryService : ICategoryService
     #region Update
     public async Task<IResult> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto, CancellationToken cancellationToken)
     {
-        var categoryResult = await GetCategoryByIdAsync(updateCategoryDto.Id, cancellationToken);
-        if (!categoryResult.Success)
+        var category= await _categoryRepository.GetByIdAsync(updateCategoryDto.Id);
+        if (category is null)
         {
-            return categoryResult;
+            return new ErrorResult(Messages.CategoryNotFound);
         } 
 
         var existResult = await CheckIfCategoryNameAlreadyExistsAsync(updateCategoryDto.Name, updateCategoryDto.Id);
@@ -83,9 +83,9 @@ public class CategoryService : ICategoryService
             return existResult;
         }
 
-        CompleteUpdate(updateCategoryDto, categoryResult.Data);
+        CompleteUpdate(updateCategoryDto, category);
 
-        var updateCategoryResult = await _categoryRepository.UpdateAsync(categoryResult.Data);
+        var updateCategoryResult = await _categoryRepository.UpdateAsync(category);
         return updateCategoryResult > 0
             ? new SuccessResult(Messages.UpdateCategorySuccess)
             : new ErrorResult(Messages.UpdateCategoryError);

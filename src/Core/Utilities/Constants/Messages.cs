@@ -1,4 +1,4 @@
-﻿namespace Core.Utilities.Constants;
+﻿namespace ApplicationCore.Utilities.Constants;
 
 public class Messages
 {

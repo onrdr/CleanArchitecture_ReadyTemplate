@@ -1,5 +1,5 @@
-﻿using Core.Interfaces.Repositories;
-using Core.Interfaces.Services;
+﻿using ApplicationCore.Interfaces.Repositories;
+using ApplicationCore.Interfaces.Services;
 using DataAccess.Repositories.Concrete.Cache;
 using Infrastructure.Data;
 using Infrastructure.Repositories;

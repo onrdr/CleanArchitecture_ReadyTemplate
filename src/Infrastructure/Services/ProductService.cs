@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using Core.DTOs.Product;
-using Core.Entities;
-using Core.Interfaces.Repositories;
-using Core.Interfaces.Services;
-using Core.Utilities.Constants;
-using Core.Utilities.Results;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using ApplicationCore.Entities;
+using ApplicationCore.DTOs.Product;
+using ApplicationCore.Interfaces.Repositories;
+using ApplicationCore.Interfaces.Services;
+using ApplicationCore.Utilities.Constants;
+using ApplicationCore.Utilities.Results;
+using AutoMapper; 
 
 namespace Infrastructure.Services;
 
@@ -23,21 +23,21 @@ public class ProductService : IProductService
     }
 
     #region Read
-    public async Task<IDataResult<Product>> GetProductByIdAsync(Guid productId, CancellationToken cancellationToken)
+    public async Task<IDataResult<ViewProductDto>> GetProductByIdAsync(Guid productId, CancellationToken cancellationToken)
     {
         var product = await _productRepository.GetByIdAsync(productId);
         return product is not null
-            ? new SuccessDataResult<Product>(product)
-            : new ErrorDataResult<Product>(Messages.ProductNotFound);
+            ? new SuccessDataResult<ViewProductDto>(_mapper.Map<ViewProductDto>(product))
+            : new ErrorDataResult<ViewProductDto>(Messages.ProductNotFound);
     }
 
-    public async Task<IDataResult<IEnumerable<Product>>> GetAllProductsAsync(
+    public async Task<IDataResult<IEnumerable<ViewProductDto>>> GetAllProductsAsync(
         Expression<Func<Product, bool>> predicate, CancellationToken cancellationToken)
     {
         var productList = await _productRepository.GetAllAsync(predicate);
         return productList is not null && productList.Any()
-            ? new SuccessDataResult<IEnumerable<Product>>(productList)
-            : new ErrorDataResult<IEnumerable<Product>>(Messages.EmptyProductList);
+            ? new SuccessDataResult<IEnumerable<ViewProductDto>>(_mapper.Map<IEnumerable<ViewProductDto>>(productList))
+            : new ErrorDataResult<IEnumerable<ViewProductDto>>(Messages.EmptyProductList);
     }
     #endregion
 
@@ -60,10 +60,10 @@ public class ProductService : IProductService
     #region Update
     public async Task<IResult> UpdateProductAsync(UpdateProductDto updateProductDto, CancellationToken cancellationToken)
     {
-        var productResult = await GetProductByIdAsync(updateProductDto.Id, cancellationToken);
-        if (!productResult.Success)
+        var product = await _productRepository.GetByIdAsync(updateProductDto.Id);
+        if (product is null)
         {
-            return productResult;
+            return new ErrorResult(Messages.ProductNotFound);
         }
 
         var categoryResult = await _categoryService.GetCategoryByIdAsync(updateProductDto.CategoryId, cancellationToken);
@@ -72,9 +72,9 @@ public class ProductService : IProductService
             return categoryResult;
         }
 
-        CompleteUpdate(productResult.Data, updateProductDto);
+        CompleteUpdate(product, updateProductDto);
 
-        var updateProductResult = await _productRepository.UpdateAsync(productResult.Data);
+        var updateProductResult = await _productRepository.UpdateAsync(product);
         return updateProductResult > 0
             ? new SuccessResult(Messages.UpdateProductSuccess)
             : new ErrorResult(Messages.UpdateProductError);

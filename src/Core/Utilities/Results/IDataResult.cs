@@ -1,4 +1,4 @@
-﻿namespace Core.Utilities.Results;
+﻿namespace ApplicationCore.Utilities.Results;
 
 public interface IDataResult<T> : IResult
 {

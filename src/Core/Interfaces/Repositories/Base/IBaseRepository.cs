@@ -1,7 +1,7 @@
-﻿using Core.Interfaces.Entities.Base;
+﻿using ApplicationCore.Interfaces.Entities.Base;
 using System.Linq.Expressions;
 
-namespace Core.Interfaces.Repositories.Base;
+namespace ApplicationCore.Interfaces.Repositories.Base;
 
 public interface IBaseRepository<T> where T : class, IBaseEntity
 {

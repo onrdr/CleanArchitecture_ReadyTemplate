@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Core.Interfaces.Repositories;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repositories;
 using Infrastructure.Data;
 using Infrastructure.Repositories.Base;
 

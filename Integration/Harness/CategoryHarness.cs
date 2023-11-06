@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Core.Interfaces.Repositories;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces.Repositories;
 using FluentAssertions;
 using Integration.Base;
 using Microsoft.Extensions.DependencyInjection; 
@@ -35,7 +35,7 @@ internal static class CategoryHarness
     {
         var categoryRepository = testBase.ApplicationFixture.Services.GetRequiredService<ICategoryRepository>();
         var product = await testBase.RegisterCategoryAndGetRandomProductAsync();
-        var category = await categoryRepository.GetByIdAsync(product.CategoryId);
+        var category = await categoryRepository.GetCategoryWithProductsAsync(product.CategoryId);
 
         AssertGetCategoryByIdResult(true, category);
 
@@ -45,6 +45,9 @@ internal static class CategoryHarness
     private static void AssertGetCategoryByIdResult(bool assertSuccess, Category? category)
     {
         if (assertSuccess)
+        {
             category.Should().NotBeNull();
+            category?.Products.Should().NotBeNull().And.NotBeEmpty();
+        }
     }
 }
