@@ -1,10 +1,4 @@
-﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces.Repositories;
-using FluentAssertions;
-using Integration.Base;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Integration.Harness;
+﻿namespace Integration.Harness;
 
 internal static class ProductHarness
 {
@@ -33,5 +27,17 @@ internal static class ProductHarness
     {
         if (assertSuccess)
             registerResult.Should().BeGreaterThan(0);
+    }
+
+    public static ViewProductDto ConvertProductToViewProductDto(this TestBase testBase, Product product)
+    {
+        return new ViewProductDto
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            CategoryId = product.CategoryId,
+        };
     }
 }

@@ -1,10 +1,4 @@
-﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces.Repositories;
-using FluentAssertions;
-using Integration.Base;
-using Microsoft.Extensions.DependencyInjection; 
-
-namespace Integration.Harness;
+﻿namespace Integration.Harness;
 
 internal static class CategoryHarness
 { 
@@ -31,6 +25,16 @@ internal static class CategoryHarness
             registerResult.Should().BeGreaterThan(0);
     }
 
+    public static ViewCategoryDto ConvertCategoryToViewCategoryDto(this TestBase testBase, Category category)
+    {
+        return new ViewCategoryDto()
+        {
+            Id = category.Id,
+            Name = category.Name,
+            Description = category.Description,
+        };
+    }
+
     internal static async Task<Category> RegisterCategoryWithProductsAndGetCategoryAsync(this TestBase testBase, bool assertSuccess = true)
     {
         var categoryRepository = testBase.ApplicationFixture.Services.GetRequiredService<ICategoryRepository>();
@@ -40,6 +44,17 @@ internal static class CategoryHarness
         AssertGetCategoryByIdResult(true, category);
 
         return category!;
+    }
+
+    public static ViewCategoryWithProductsDto ConvertCategoryToViewCategoryWithProductsDto(this TestBase testBase, Category category)
+    {
+        return new ViewCategoryWithProductsDto
+        {
+            Id = category.Id,
+            Name = category.Name,
+            Description = category.Description,
+            Products = category.Products,
+        };
     }
 
     private static void AssertGetCategoryByIdResult(bool assertSuccess, Category? category)

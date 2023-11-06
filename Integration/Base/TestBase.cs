@@ -1,8 +1,4 @@
-﻿using ApplicationCore.Interfaces.Services;
-using Integration.Fixtures;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Integration.Base;
+﻿namespace Integration.Base;
 
 [Collection("Database collection")]
 public class TestBase

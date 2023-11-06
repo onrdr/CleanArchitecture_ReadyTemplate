@@ -1,12 +1,4 @@
-﻿using Infrastructure.Data;
-using Infrastructure.ExtensionMethods;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Integration.Fixtures;
+﻿namespace Integration.Fixtures;
 
 public class ApplicationFixture : IDisposable
 {

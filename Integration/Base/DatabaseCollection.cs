@@ -1,6 +1,4 @@
-﻿using Integration.Fixtures;
-
-namespace Integration.Base;
+﻿namespace Integration.Base;
 
 [CollectionDefinition("Database collection")]
 public class DatabaseCollection : ICollectionFixture<ApplicationFixture>
