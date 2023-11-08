@@ -2,7 +2,7 @@
 
 public class ApplicationFixture : IDisposable
 {
-    public IServiceProvider Services { get; }
+    internal IServiceProvider Services { get; }
     protected IConfiguration Configuration { get; }
     protected IWebHostEnvironment Environment { get; }
     protected WebApplication Application { get; }
@@ -26,7 +26,7 @@ public class ApplicationFixture : IDisposable
 
         DataContext.Database.EnsureDeleted();
         DataContext.Database.Migrate();
-        var result = DataContext.Database.EnsureCreated();
+        DataContext.Database.EnsureCreated();
     }
 
     public void Dispose()
