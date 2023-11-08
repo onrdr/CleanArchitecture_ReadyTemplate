@@ -89,13 +89,7 @@ public class CategoryService : ICategoryService
         return updateCategoryResult > 0
             ? new SuccessResult(Messages.UpdateCategorySuccess)
             : new ErrorResult(Messages.UpdateCategoryError);
-    } 
-
-    private static void CompleteUpdate(UpdateCategoryDto updateCategoryDto, Category category)
-    {
-        category.Name = updateCategoryDto.Name; 
-        category.Description = updateCategoryDto.Description; 
-    } 
+    }  
     #endregion
 
     #region Delete
@@ -115,6 +109,12 @@ public class CategoryService : ICategoryService
     #endregion
 
     #region Helper Methods
+    private static void CompleteUpdate(UpdateCategoryDto updateCategoryDto, Category category)
+    {
+        category.Name = updateCategoryDto.Name;
+        category.Description = updateCategoryDto.Description;
+    }
+
     private async Task<IResult> CheckIfCategoryNameAlreadyExistsAsync(string name)
     { 
         var categoryList = await _categoryRepository.GetAllAsync(c => 

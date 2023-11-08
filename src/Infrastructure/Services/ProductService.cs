@@ -78,16 +78,7 @@ public class ProductService : IProductService
         return updateProductResult > 0
             ? new SuccessResult(Messages.UpdateProductSuccess)
             : new ErrorResult(Messages.UpdateProductError);
-    }
-
-    private static void CompleteUpdate(Product product, UpdateProductDto updateProductDto)
-    {
-        product.Name = updateProductDto.Name;
-        product.Description = updateProductDto.Description;
-        product.Price = updateProductDto.Price;
-        product.CategoryId = updateProductDto.CategoryId;
-    }
-
+    } 
     #endregion
 
     #region Delete
@@ -103,6 +94,16 @@ public class ProductService : IProductService
         return deleteProductResult > 0
             ? new SuccessResult(Messages.DeleteProductSuccess)
             : new ErrorResult(Messages.DeleteProductError);
+    }
+    #endregion
+
+    #region Helper Methods
+    private static void CompleteUpdate(Product product, UpdateProductDto updateProductDto)
+    {
+        product.Name = updateProductDto.Name;
+        product.Description = updateProductDto.Description;
+        product.Price = updateProductDto.Price;
+        product.CategoryId = updateProductDto.CategoryId;
     }
     #endregion
 }
