@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Net.Mime;
 using System.Net;
-using Azure;
 using Newtonsoft.Json;
+using ApplicationCore.Exceptions;
 
 namespace WebUI.Middlewares;
 
@@ -30,9 +30,11 @@ public class GlobalExceptionHandlingMiddleware
                 logger.LogError(contextFeature.Error.Message);
             }
 
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            var response = new GlobalExceptionResponse((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace);
+            context.Response.StatusCode = response.StatusCode;
             context.Response.ContentType = MediaTypeNames.Application.Json;
-            var jsonResponse = JsonConvert.SerializeObject(new { ex.Message });
+
+            var jsonResponse = JsonConvert.SerializeObject(response);
             await context.Response.WriteAsync(jsonResponse);
         }
     }
