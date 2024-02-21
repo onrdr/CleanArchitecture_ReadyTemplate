@@ -11,7 +11,6 @@ public static class ApplicationBuilderExtensionMethods
     {
         using var scope = app.ApplicationServices.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        await context.Database.MigrateAsync(cancellationToken);
         await context.Database.EnsureCreatedAsync(cancellationToken);
     }
 }
