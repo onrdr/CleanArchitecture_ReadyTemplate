@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensionMethods
     static IServiceCollection ConfigureDatabase(this IServiceCollection services, ConfigurationManager configurationManager)
     {
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(configurationManager.GetConnectionString(nameof(ApplicationDbContext))));
+            options.UseNpgsql(configurationManager.GetConnectionString(nameof(ApplicationDbContext))));
 
         return services;
     }
