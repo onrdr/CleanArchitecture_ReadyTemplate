@@ -6,13 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+public class CategoryRepository(ApplicationDbContext context) : BaseRepository<Category>(context), ICategoryRepository
 {
-    public CategoryRepository(ApplicationDbContext context) : base(context)
-    {
-
-    }
-
     public async Task<Category?> GetCategoryWithProductsAsync(Guid categoryId)
     {
         var category = await _dataContext.Categories

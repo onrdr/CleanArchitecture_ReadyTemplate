@@ -1,6 +1,5 @@
 ﻿using ApplicationCore.DTOs.Product;
 using ApplicationCore.Interfaces.Services;
-using ApplicationCore.Utilities.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers;
@@ -8,21 +7,14 @@ namespace WebUI.Controllers;
 
 [ApiController]
 [Route("products")]
-public class ProductsController : Controller
+public class ProductsController(IProductService _productService) : BaseController
 {
-    private readonly IProductService _productService;
-
-    public ProductsController(IProductService productService)
-    {
-        _productService = productService;
-    }
-
-    [HttpGet("{productId}")]
+    [HttpGet("{productId:guid}")]
     public async Task<IActionResult> GetProduct(Guid productId)
     {
         var productResult = await _productService.GetProductByIdAsync(productId, default);
 
-        return HandleProductResponse(productResult);
+        return HandleResponse(productResult);
     }
 
     [HttpGet]
@@ -30,7 +22,7 @@ public class ProductsController : Controller
     {
         var productsResult = await _productService.GetAllProductsAsync(p => true, default);
 
-        return HandleProductResponse(productsResult);
+        return HandleResponse(productsResult);
     }
 
     [HttpPost]
@@ -38,7 +30,7 @@ public class ProductsController : Controller
     {
         var createProductResult = await _productService.CreateProductAsync(createProductDto, default);
 
-        return HandleProductResponse(createProductResult);
+        return HandleResponse(createProductResult);
     }
 
     [HttpPut]
@@ -46,7 +38,7 @@ public class ProductsController : Controller
     {
         var updateProductResult = await _productService.UpdateProductAsync(updateProductDto, default);
 
-        return HandleProductResponse(updateProductResult);
+        return HandleResponse(updateProductResult);
     }
 
     [HttpDelete("{productId}")]
@@ -54,24 +46,6 @@ public class ProductsController : Controller
     {
         var deleteProductResult = await _productService.DeleteProductAsync(productId, default);
 
-        return HandleProductResponse(deleteProductResult);
+        return HandleResponse(deleteProductResult);
     }
-
-    #region Helper Methods
-    private IActionResult HandleProductResponse(ApplicationCore.Utilities.Results.IResult result)
-    {
-        if (result.Success)
-        {
-            return Ok(result);
-        }
-
-        if (result.Message == Messages.ProductNotFound
-            || result.Message == Messages.EmptyProductList)
-        {
-            return NotFound(result);
-        }
-
-        return BadRequest(result);
-    }
-    #endregion
 }

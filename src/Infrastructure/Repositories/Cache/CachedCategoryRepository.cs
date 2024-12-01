@@ -6,17 +6,11 @@ using System.Linq.Expressions;
 
 namespace DataAccess.Repositories.Concrete.Cache;
 
-public class CachedCategoryRepository : ICategoryRepository
+public class CachedCategoryRepository(
+    CategoryRepository _decorated, 
+    IMemoryCache _cache) : ICategoryRepository
 {
-    private readonly IMemoryCache _cache;
-    private readonly CategoryRepository _decorated;
-    private static readonly List<string> CachedKeys = new();
-
-    public CachedCategoryRepository(CategoryRepository decorated, IMemoryCache cache)
-    {
-        _decorated = decorated;
-        _cache = cache;
-    }
+    private static readonly List<string> CachedKeys = [];
 
     public async Task<Category?> GetByIdAsync(Guid id)
     {

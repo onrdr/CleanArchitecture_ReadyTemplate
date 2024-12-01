@@ -8,7 +8,7 @@ public class Category : IBaseEntity, ICategory
     public Category()
     {
         Id = Guid.NewGuid();
-        Products = new HashSet<Product>();
+        Products = [];
     }
 
     public Guid Id { get; set; }

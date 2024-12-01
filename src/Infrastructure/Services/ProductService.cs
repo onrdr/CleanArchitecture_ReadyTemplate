@@ -9,19 +9,11 @@ using AutoMapper;
 
 namespace Infrastructure.Services;
 
-public class ProductService : IProductService
+public class ProductService(
+    IProductRepository _productRepository, 
+    ICategoryService _categoryService,
+    IMapper _mapper) : IProductService
 {
-    private readonly IProductRepository _productRepository;
-    private readonly ICategoryService _categoryService;
-    private readonly IMapper _mapper;
-
-    public ProductService(IProductRepository productRepository, IMapper mapper, ICategoryService categoryService)
-    {
-        _productRepository = productRepository;
-        _mapper = mapper;
-        _categoryService = categoryService;
-    }
-
     #region Read
     public async Task<IDataResult<ViewProductDto>> GetProductByIdAsync(Guid productId, CancellationToken cancellationToken)
     {

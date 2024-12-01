@@ -18,10 +18,10 @@ public static class CategorySeeder
         return modelBuilder;
     }
 
-    private static IEnumerable<Category> GetCategories()
+    private static List<Category> GetCategories()
     {
-        return new List<Category>()
-        {
+        return
+        [
             new()
             {
                 Id = Guid.Parse("81e4e565-7bea-4f4f-816a-def22c28f42f"),
@@ -35,6 +35,6 @@ public static class CategorySeeder
                 Name = "Category Name 2",
                 Description = "Category 2 Description",
             }
-        };
+        ];
     }
 }

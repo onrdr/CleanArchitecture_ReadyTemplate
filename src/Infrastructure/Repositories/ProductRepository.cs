@@ -5,10 +5,6 @@ using Infrastructure.Repositories.Base;
 
 namespace Infrastructure.Repositories;
 
-public class ProductRepository : BaseRepository<Product> , IProductRepository
+public class ProductRepository(ApplicationDbContext context) : BaseRepository<Product>(context) , IProductRepository
 {
-    public ProductRepository(ApplicationDbContext context) : base(context)
-    {
-        
-    }
 }

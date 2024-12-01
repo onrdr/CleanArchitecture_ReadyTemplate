@@ -4,13 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> context) : DbContext(context)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> context) : base(context)
-    {
-        
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

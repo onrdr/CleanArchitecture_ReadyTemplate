@@ -9,17 +9,10 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Services;
 
-public class CategoryService : ICategoryService
+public class CategoryService(
+    ICategoryRepository _categoryRepository, 
+    IMapper _mapper) : ICategoryService
 {
-    private readonly ICategoryRepository _categoryRepository;
-    private readonly IMapper _mapper;
-
-    public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
-    {
-        _categoryRepository = categoryRepository;
-        _mapper = mapper;
-    }
-
     #region Read
     public async Task<IDataResult<ViewCategoryDto>> GetCategoryByIdAsync(Guid categoryId, CancellationToken cancellationToken)
     {

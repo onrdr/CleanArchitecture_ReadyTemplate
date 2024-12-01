@@ -18,10 +18,10 @@ public static class ProductSeeder
         return modelBuilder;
     }
 
-    private static IEnumerable<Product> GetProducts()
+    private static List<Product> GetProducts()
     {
-        return new List<Product>()
-        {
+        return
+        [
             new()
             {
                 Id = Guid.Parse("8ff2a6b2-7f3d-4b5f-8069-821f8765a3dd"),
@@ -54,6 +54,6 @@ public static class ProductSeeder
                 Price = 40,
                 CategoryId = Guid.Parse("81e4e565-7bea-4f4f-816a-def22c28f42f")
             }
-        };
+        ];
     }
 }

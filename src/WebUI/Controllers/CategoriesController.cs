@@ -1,27 +1,19 @@
 ﻿using ApplicationCore.DTOs.Category;
 using ApplicationCore.Interfaces.Services;
-using ApplicationCore.Utilities.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers;
 
 [ApiController]
 [Route("categories")]
-public class CategoriesController : Controller
+public class CategoriesController(ICategoryService _categoryService) : BaseController
 {
-    private readonly ICategoryService _categoryService;
-
-    public CategoriesController(ICategoryService categoryService)
-    {
-        _categoryService = categoryService;
-    }
-
     [HttpGet("{categoryId}")]
     public async Task<IActionResult> GetCategory(Guid categoryId)
     {
         var categoryResult = await _categoryService.GetCategoryByIdAsync(categoryId, default);
 
-        return HandleCategoryResponse(categoryResult);
+        return HandleResponse(categoryResult);
     }
 
     [HttpGet("with-products/{categoryId}")]
@@ -29,7 +21,7 @@ public class CategoriesController : Controller
     {
         var categoryResult = await _categoryService.GetCategoryWithProductsAsync(categoryId, default);
 
-        return HandleCategoryResponse(categoryResult);
+        return HandleResponse(categoryResult);
     }
 
     [HttpGet]
@@ -37,7 +29,7 @@ public class CategoriesController : Controller
     {
         var categoriesResult = await _categoryService.GetAllCategoriesAsync(p => true, default);
 
-        return HandleCategoryResponse(categoriesResult);
+        return HandleResponse(categoriesResult);
     }
 
     [HttpPost]
@@ -45,7 +37,7 @@ public class CategoriesController : Controller
     {
         var createCategoryResult = await _categoryService.CreateCategoryAsync(createCategoryDto, default);
 
-        return HandleCategoryResponse(createCategoryResult);
+        return HandleResponse(createCategoryResult);
     }
 
     [HttpPut]
@@ -53,7 +45,7 @@ public class CategoriesController : Controller
     {
         var updateCategoryResult = await _categoryService.UpdateCategoryAsync(updateCategoryDto, default);
 
-        return HandleCategoryResponse(updateCategoryResult);
+        return HandleResponse(updateCategoryResult);
     }
 
     [HttpDelete("{categoryId}")]
@@ -61,25 +53,6 @@ public class CategoriesController : Controller
     {
         var deleteCategoryResult = await _categoryService.DeleteCategoryAsync(categoryId, default);
 
-        return HandleCategoryResponse(deleteCategoryResult);
+        return HandleResponse(deleteCategoryResult);
     }
-
-    #region Helper Methods
-    private IActionResult HandleCategoryResponse(ApplicationCore.Utilities.Results.IResult result)
-    {
-        if (result.Success)
-        {
-            return Ok(result);
-        }
-
-        if (result.Message == Messages.CategoryNotFound || 
-            result.Message == Messages.EmptyCategoryList ||
-            result.Message == Messages.EmptyProductListForCategoryError)
-        {
-            return NotFound(result);
-        }
-
-        return BadRequest(result);
-    } 
-    #endregion
 }
